@@ -59,9 +59,21 @@ public class Cube2 {
         return new Cube2(newSide, this.color);
     }
 
-    public Cube2 minus(Cube2 otherCube) { 
-        int newSide = (int) Math.sqrt((otherCube.getSide() * otherCube.getSide()) - (this.getSide() * this.getSide()));
-
+    public Cube2 minus(Cube2 other) {
+        int a = this.getSide();
+        int b = other.getSide();
+        
+        int surfaceArea1 = 6 * a * a;
+        int surfaceArea2 = 6 * b * b;
+        int surfaceAreaDifference = Math.abs(surfaceArea1 - surfaceArea2);
+    
+        double newSideSquared = surfaceAreaDifference / 6.0;
+        int newSide = (int) Math.sqrt(newSideSquared);
+        
+        if (newSide * newSide != newSideSquared) {
+            throw new IllegalArgumentException("Cannot subtract cubes - not a Pythagorean triple");
+        }
+        
         return new Cube2(newSide, this.color);
     }
 
